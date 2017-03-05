@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal, Button, Panel, Table, Glyphicon } from 'react-bootstrap';
+import { Modal, Button, Panel, Table, Glyphicon, Col, Row } from 'react-bootstrap';
 
 import AddPersonFields from './add-person-fields';
+import TextAreaField from './textarea-field';
 import { addCriminal, removeCriminal } from '../actions/people/add-criminal';
 
 class AddCriminalForm extends Component {
@@ -75,20 +76,37 @@ class AddCriminalForm extends Component {
         return (
             <Modal show={this.state.showModal} onHide={this.closeModal}>
                 <Modal.Header>
-                    <Modal.Title>SÜÜTEO TOIME PANNUD ISIKU</Modal.Title>
+                    <Modal.Title className="text-center">Lisa süüteo toime pannud isik</Modal.Title>
                 </Modal.Header>
 
                 <Form onSubmit={this.props.handleSubmit(this.submitForm.bind(this))}>
-                    <Modal.Body>
-                        <AddPersonFields/>
-                    </Modal.Body>
+                    <div style={{marginBottom: '20px'}}>
+                        <Modal.Body>
+                            <AddPersonFields/>
+                            <Col xs={12}>
+                                <TextAreaField name="criminalDescription"
+                                               label="Tundemärgid (sh sugu, vanus, kirjeldus, riietus jne)"
+                                               rows={4}/>
+                            </Col>
+                        </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button onClick={this.closeModal}>Sulge</Button>
-                        <Button type="submit" bsStyle="primary">
-                            Lisa isik
-                        </Button>
-                    </Modal.Footer>
+                        <Col xs={12}>
+                            <hr/>
+                        </Col>
+
+                        <Row>
+                            <Col xs={5} style={{marginLeft: '30px'}}>
+                                <Button type="submit" bsStyle="primary">Lisa isik</Button>
+                            </Col>
+                            <Col xs={5} className="pull-right" style={{marginRight: '30px'}}>
+                                <Button className="pull-right"
+                                        bsStyle="danger"
+                                        onClick={this.closeModal}>
+                                    Sulge
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </Modal>
         );

@@ -2,14 +2,19 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
+import ErrorMessage from './error-message';
+
 const renderInputField = ({ input, label, type, meta: { touched, error, warning } }) => {
     return (
         <span className="has-float-label">
             <FormGroup>
                 <FormControl {...input} type={type}/>
-                {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
                 <label>
                     {label}
+                    {touched &&
+                        ((error && <ErrorMessage message={error}/> ||
+                        (warning && <ErrorMessage message={warning}/>)))
+                    }
                 </label>
             </FormGroup>
         </span>

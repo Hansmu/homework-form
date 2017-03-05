@@ -1,14 +1,23 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { Panel, FormControl } from 'react-bootstrap';
+import { Panel, FormControl, FormGroup } from 'react-bootstrap';
+
+import ErrorMessage from './error-message';
 
 const renderTextArea = ({ input, label, rows, cols, type, meta: { touched, error, warning } }) => {
     return (
-        <div>
-            <div>
-                <FormControl {...input} componentClass="textarea" rows={rows} cols={cols} placeholder={label}/>
-            </div>
-        </div>
+        <span className="has-float-label">
+            <FormGroup>
+                <FormControl {...input} componentClass="textarea" rows={rows} cols={cols}/>
+                <label>
+                    {label}
+                    {touched &&
+                        ((error && <ErrorMessage message={error}/> ||
+                        (warning && <ErrorMessage message={warning}/>)))
+                    }
+                </label>
+            </FormGroup>
+        </span>
     );
 };
 

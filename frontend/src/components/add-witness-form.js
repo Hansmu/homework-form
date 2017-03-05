@@ -84,7 +84,10 @@ class AddWitnessForm extends Component {
                                 <AddPersonFields/>
                         </Modal.Body>
 
-                        <hr/>
+                        <Col xs={12}>
+                            <hr/>
+                        </Col>
+
                         <Row>
                             <Col xs={5} style={{marginLeft: '30px'}}>
                                 <Button type="submit" bsStyle="primary">Lisa tunnistaja</Button>

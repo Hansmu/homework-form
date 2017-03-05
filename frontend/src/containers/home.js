@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field, reduxForm } from 'redux-form';
-import { Button, Col } from 'react-bootstrap';
+import { Button, Col, Panel } from 'react-bootstrap';
 
 import { addCat } from '../actions';
 import SubmitterForm from '../components/submitter-form';
@@ -40,19 +40,21 @@ class Home extends Component {
     renderForm() {
         return (
             <Form onSubmit={this.props.handleSubmit(this.submitForm.bind(this))}>
-                <SubmitterForm required={required}
-                               isNumber={isNumber}
-                               isEstonia={this.isEstonia()}
-                               isPhoneSelected={this.isPhoneSelected()}/>
-                <EventForm required={required}/>
-                <AddWitnessForm witnesses={this.props.witnesses}/>
-                <AddCriminalForm criminals={this.props.criminals}/>
-                <AdditionalData/>
-                <Col xs={12}>
-                    <hr/>
-                </Col>
-                <Button type="submit" bsStyle="primary">Kinnita ja allkirjasta ID kaardiga</Button>
-                <Button className="pull-right" type="submit" bsStyle="primary">Kinnita allkirjastamata</Button>
+                <Panel>
+                    <SubmitterForm required={required}
+                                   isNumber={isNumber}
+                                   isEstonia={this.isEstonia()}
+                                   isPhoneSelected={this.isPhoneSelected()}/>
+                    <EventForm required={required}/>
+                    <AddWitnessForm witnesses={this.props.witnesses}/>
+                    <AddCriminalForm criminals={this.props.criminals}/>
+                    <AdditionalData/>
+                    <Col xs={12}>
+                        <hr/>
+                    </Col>
+                    <Button type="submit" bsStyle="primary">Kinnita ja allkirjasta ID kaardiga</Button>
+                    <Button className="pull-right" type="submit" bsStyle="primary">Kinnita allkirjastamata</Button>
+                </Panel>
             </Form>
         );
     }

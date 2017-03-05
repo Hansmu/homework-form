@@ -26,18 +26,18 @@ class SubmitterForm extends Component {
             <div>
                 <Col xs={12} sm={4}>
                     <InputField name="firstName"
-                                label="Eesnimi"
+                                label="Eesnimi * "
                                 validate={[this.props.required]}/>
                 </Col>
                 <Col xs={12} sm={4}>
                     <InputField name="lastName"
-                                label="Perekonnanimi"
+                                label="Perekonnanimi * "
                                 validate={[this.props.required]}/>
                 </Col>
                 <Col xs={12} sm={4}>
                     <InputField name="personCode"
-                                label="Isikukood"
-                                validate={[this.props.isNumber]}/>
+                                label="Isikukood * "
+                                validate={[this.props.isNumber, this.props.required]}/>
                 </Col>
             </div>
         );
@@ -66,11 +66,13 @@ class SubmitterForm extends Component {
             <div>
                 <Col xs={12} sm={7}>
                     <InputField name="contactEmail"
-                                label="E-mail"
+                                label="E-mail * "
                                 validate={[this.props.required]}/>
                 </Col>
                 <Col xs={12} sm={5}>
-                    <InputField name="contactPhone" label="Telefon"/>
+                    <InputField name="contactPhone"
+                                label="Telefon * "
+                                validate={this.props.required}/>
                 </Col>
                 <Col xs={12}>
                     <hr/>
