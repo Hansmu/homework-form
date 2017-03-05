@@ -26,9 +26,7 @@ class AdditionalData  extends Component {
     renderAgreementHeader() {
         return (
             <label>
-                <OverlayTrigger trigger="click" placement="right" overlay={this.renderPopover}>
-                    <Glyphicon glyph="exclamation-sign"/>
-                </OverlayTrigger>
+                <Glyphicon glyph="exclamation-sign"/>
             </label>
         );
     }
