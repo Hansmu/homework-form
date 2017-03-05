@@ -2,6 +2,11 @@
     max-width: none;
 }
 
+body {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
 .has-float-label {
     display: block;
     position: relative;

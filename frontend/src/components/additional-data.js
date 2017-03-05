@@ -46,17 +46,24 @@ class AdditionalData  extends Component {
     }
 
     renderSectionHeader() {
+        const glyph = this.state.sectionShown ? "chevron-up" : "chevron-down";
+
         return (
             <h3 className="text-center"
                 onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                <Glyphicon glyph={glyph} style={{marginRight: '10px'}}/>
                 TÄIENDAVAD ANDMED
+                <Glyphicon glyph={glyph} style={{marginLeft: '10px'}}/>
             </h3>
         );
     }
 
     render() {
         return (
-            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+            <Panel collapsible
+                   bsStyle="primary"
+                   expanded={this.state.sectionShown}
+                   header={this.renderSectionHeader()}>
                 <CheckboxField name="isAcceptingAgreement"
                                label={this.renderAgreementHeader()}/>
                 <CheckboxField name="isForwardingAllowed"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field, reduxForm } from 'redux-form';
+import { Button, Col } from 'react-bootstrap';
 
 import { addCat } from '../actions';
 import SubmitterForm from '../components/submitter-form';
@@ -47,8 +48,11 @@ class Home extends Component {
                 <AddWitnessForm witnesses={this.props.witnesses}/>
                 <AddCriminalForm criminals={this.props.criminals}/>
                 <AdditionalData/>
-                <button type="submit" className="btn btn-primary">Kinnita ja allkirjasta ID kaardiga</button>
-                <button type="submit" className="btn btn-primary">Kinnita allkirjastamata</button>
+                <Col xs={12}>
+                    <hr/>
+                </Col>
+                <Button type="submit" bsStyle="primary">Kinnita ja allkirjasta ID kaardiga</Button>
+                <Button className="pull-right" type="submit" bsStyle="primary">Kinnita allkirjastamata</Button>
             </Form>
         );
     }

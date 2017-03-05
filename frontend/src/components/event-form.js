@@ -11,7 +11,7 @@ class EventForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sectionShown: false
+            sectionShown: true
         };
 
         this.renderSectionHeader = this.renderSectionHeader.bind(this);
@@ -48,17 +48,24 @@ class EventForm extends Component {
     }
 
     renderSectionHeader() {
+        const glyph = this.state.sectionShown ? "chevron-up" : "chevron-down";
+
         return (
             <h3 className="text-center"
                 onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                <Glyphicon glyph={glyph} style={{marginRight: '10px'}}/>
                 SÜNDMUSE INFO
+                <Glyphicon glyph={glyph} style={{marginLeft: '10px'}}/>
             </h3>
         );
     }
 
     render() {
         return (
-            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+            <Panel collapsible
+                   expanded={this.state.sectionShown}
+                   bsStyle="primary"
+                   header={this.renderSectionHeader()}>
                 {this.renderEventFormFields()}
             </Panel>
         );

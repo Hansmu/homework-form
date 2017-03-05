@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal, Button, Panel, Table, Col, Row } from 'react-bootstrap';
+import { Modal, Button, Panel, Table, Col, Row, Glyphicon } from 'react-bootstrap';
 
 import AddPersonFields from './add-person-fields';
 import { addWitness, removeWitness } from '../actions/people/add-witness';
@@ -104,17 +104,25 @@ class AddWitnessForm extends Component {
     }
 
     renderSectionHeader() {
+        const glyph = this.state.sectionShown ? "chevron-up" : "chevron-down";
+
         return (
             <h3 className="text-center"
                 onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                <Glyphicon glyph={glyph} style={{marginRight: '10px'}}/>
                 TUNNISTAJA(TE) ANDMED
+                <Glyphicon glyph={glyph} style={{marginLeft: '10px'}}/>
             </h3>
         );
     }
 
     render() {
         return (
-            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+            <Panel collapsible
+                   bsStyle="primary"
+                   expanded={this.state.sectionShown}
+                   header={this.renderSectionHeader()}>
+
                 { this.renderAddedWitnessesTable(this.props.witnesses) }
                 <Button onClick={this.showModal}>
                     <span className="glyphicon glyphicon-plus"/>

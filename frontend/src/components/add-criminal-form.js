@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal, Button, Panel, Table } from 'react-bootstrap';
+import { Modal, Button, Panel, Table, Glyphicon } from 'react-bootstrap';
 
 import AddPersonFields from './add-person-fields';
 import { addCriminal, removeCriminal } from '../actions/people/add-criminal';
@@ -95,20 +95,27 @@ class AddCriminalForm extends Component {
     }
 
     renderSectionHeader() {
+        const glyph = this.state.sectionShown ? "chevron-up" : "chevron-down";
+
         return (
             <h3 className="text-center"
                 onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                <Glyphicon glyph={glyph} style={{marginRight: '10px'}}/>
                 SÜÜTEO TOIME PANNUD ISIKU(TE) ANDMED
+                <Glyphicon glyph={glyph} style={{marginLeft: '10px'}}/>
             </h3>
         );
     }
 
     render() {
         return (
-            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+            <Panel collapsible
+                   bsStyle="primary"
+                   expanded={this.state.sectionShown}
+                   header={this.renderSectionHeader()}>
                 { this.renderAddedCriminalsTable(this.props.criminals) }
                 <Button onClick={this.showModal}>
-                    <span className="glyphicon glyphicon-plus"/>
+                    <Glyphicon glyph="plus"/>
                     Lisa isik
                 </Button>
                 { this.renderAddCriminalModal() }
