@@ -1,13 +1,14 @@
-import { GET_EXAMPLES, GET_HELLO_WORLD } from '../actions/types';
+import { ADD_WITNESS, REMOVE_WITNESS } from '../actions/types';
 
 const INITIAL_STATE = { examples: [], helloWorldMessage: '' };
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
-        case GET_EXAMPLES:
-            return { ...state, examples: action.payload.data.data };
-        case GET_HELLO_WORLD:
-            return {...state, helloWorldMessage: action.payload.data.data };
+        case ADD_WITNESS:
+            const witnesses = state.witnesses.push(action.payload);
+            return { ...state, witnesses };
+        case REMOVE_WITNESS:
+            return {...state };
         default:
             return state;
     }

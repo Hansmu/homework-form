@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-class EventForm extends Component {
+import InputField from '../components/input-field';
+import DatepickerField from '../components/datepicker-field';
+import TextAreaField from '../components/textarea-field';
 
-    renderInputField({ input, label, type, meta: { touched, error, warning } }) {
+class EventForm extends Component {
+    renderCurrencyField({ input, label, type, meta: { touched, error, warning } }) {
         return (
             <div>
-                <div>
-                    <input {...input} placeholder={label} type={type}/>
+                <div className="input-group">
+                    <span className="input-group-addon glyphicon glyphicon-euro"/>
+                    <input {...input} className="form-control" placeholder={label} type={type}/>
                     {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
                 </div>
             </div>
-        );
-    }
-
-    renderDatePicker({ props, label, type, meta: { touched, error, warning } }) {
-        console.log(props);
-        return (
-            <div>
-                <div>
-                    <DatePicker/>
-                </div>
-            </div>
-        );
-    }
+        )
+    };
 
     renderEventFormFields() {
         return (
             <div>
-                <Field name="eventDate"
+                <DatepickerField name="eventDate" label="Toimumise aeg"/>
+                <InputField name="eventTime" label="Kellaaeg"/>
+                <InputField name="eventAddress" label="Aadress"/>
+                <InputField name="eventLocation" label="Toimumise koht (nt park, kauplus, internet vms)"/>
+                <TextAreaField name="eventDescription"
+                               label="Toimunu kirjeldus"
+                               rows={4}
+                               cols={80}
+                               validate={[this.props.required]}/>
+                <Field name="eventCost"
                        className="form-control"
-                       label="Toimumise aeg"
-                       component={this.renderDatePicker}
-                       type="text"/>
+                       label="Tekitatud varaline kahju"
+                       component={this.renderCurrencyField}/>
             </div>
         );
     }

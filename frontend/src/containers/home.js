@@ -6,6 +6,7 @@ import { addCat } from '../actions';
 import SubmitterForm from '../components/submitter-form';
 import EventForm from '../components/event-form';
 import TextHeaders from '../components/text-header';
+import AddWitnessForm from '../components/add-witness-form';
 
 const required = value => value ? undefined : 'Kohustuslik';
 const isNumber = value => value && isNaN(Number(value)) ? 'Peab olema arv' : undefined;
@@ -25,12 +26,19 @@ class Home extends Component {
 
     isPhoneSelected() {
         const { phone } = this.props.fieldValues;
-        console.log(this.props.fieldValues);
         return phone ? phone : false;
     }
 
     submitForm(values) {
         console.log(values);
+    }
+
+    renderAddWitnessModal() {
+        return (
+            <div>
+
+            </div>
+        );
     }
 
     renderForm() {
@@ -40,7 +48,8 @@ class Home extends Component {
                                isNumber={isNumber}
                                isEstonia={this.isEstonia()}
                                isPhoneSelected={this.isPhoneSelected()}/>
-                <EventForm />
+                <EventForm required={required}/>
+                <AddWitnessForm/>
                 <button type="submit" className="btn btn-primary">Kinnita ja allkirjasta ID kaardiga</button>
                 <button type="submit" className="btn btn-primary">Kinnita allkirjastamata</button>
             </Form>
@@ -48,7 +57,7 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.props.fieldValues);
+        // console.log(this.props.fieldValues);
         return (
             <div>
                 <TextHeaders />
