@@ -1,4 +1,5 @@
 import React from 'react';
+import { Checkbox, Glyphicon, OverlayTrigger, Popover } from 'react-bootstrap';
 
 const TextHeaders = () => {
     return (

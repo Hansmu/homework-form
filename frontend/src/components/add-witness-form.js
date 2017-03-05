@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal, Button, Panel } from 'react-bootstrap';
+import { Modal, Button, Panel, Table } from 'react-bootstrap';
 
 import AddPersonFields from './add-person-fields';
+import { addWitness, removeWitness } from '../actions/people/add-witness';
 
 class AddWitnessForm extends Component {
     constructor(props) {
@@ -14,35 +15,51 @@ class AddWitnessForm extends Component {
         };
 
         this.showModal = this.showModal.bind(this);
+        this.submitForm = this.submitForm.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.renderSectionHeader = this.renderSectionHeader.bind(this);
         this.renderAddWitnessModal = this.renderAddWitnessModal.bind(this);
     }
 
     submitForm(values) {
-        console.log(values);
+        this.props.dispatch(addWitness(values));
+        this.props.reset();
+        this.closeModal();
     }
 
-    renderAddedWitnesses(witnesses) {
-        return witnesses.map(witness => {
+    renderAddedWitnesses(witnesses = []) {
+        return witnesses.map((witness, index) => {
             return (
-                <tr>
+                <tr key={index}>
+                    <td>{ index }</td>
                     <td>{ witness.firstName }</td>
                     <td>{ witness.lastName }</td>
+                    <td>
+                        <Button onClick={() => this.props.dispatch(removeWitness(index))}>
+                            <span className="glyphicon glyphicon-remove"/>
+                        </Button>
+                    </td>
                 </tr>
             );
         });
     }
 
-    renderAddedWitnessesTable(witnesses) {
+    renderAddedWitnessesTable(witnesses = []) {
         return (
-            <table>
-                <tr>
-                    <th> Eesnimi </th>
-                    <th> Perekonnanimi </th>
-                </tr>
-                { this.renderAddedWitnesses(witnesses) }
-            </table>
+            <Table striped bordered condensed hover>
+                <thead>
+                { witnesses.length > 0 &&
+                    <tr>
+                        <th>#</th>
+                        <th> Eesnimi </th>
+                        <th> Perekonnanimi </th>
+                        <th/>
+                    </tr>}
+                </thead>
+                <tbody>
+                    { this.renderAddedWitnesses(witnesses) }
+                </tbody>
+            </Table>
         );
     }
 
@@ -68,7 +85,9 @@ class AddWitnessForm extends Component {
 
                     <Modal.Footer>
                         <Button onClick={this.closeModal}>Sulge</Button>
-                        <Button type="submit" bsStyle="primary">Lisa tunnistaja</Button>
+                        <Button type="submit" bsStyle="primary">
+                            Lisa tunnistaja
+                        </Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
@@ -77,7 +96,8 @@ class AddWitnessForm extends Component {
 
     renderSectionHeader() {
         return (
-            <h3 onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+            <h3 className="text-center"
+                onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
                 TUNNISTAJA(TE) ANDMED
             </h3>
         );
@@ -86,7 +106,9 @@ class AddWitnessForm extends Component {
     render() {
         return (
             <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+                { this.renderAddedWitnessesTable(this.props.witnesses) }
                 <Button onClick={this.showModal}>
+                    <span className="glyphicon glyphicon-plus"/>
                     Lisa tunnistaja
                 </Button>
                 { this.renderAddWitnessModal() }
@@ -96,8 +118,7 @@ class AddWitnessForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    fieldValues: state.form.witnessForm && state.form.witnessForm.values ? state.form.witnessForm.values : [],
-    witnesses: state.main.witnesses | []
+    fieldValues: state.form.witnessForm && state.form.witnessForm.values ? state.form.witnessForm.values : []
 });
 
 AddWitnessForm = connect(mapStateToProps, dispatch => ({dispatch}))(AddWitnessForm);

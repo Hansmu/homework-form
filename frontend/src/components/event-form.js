@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Panel } from 'react-bootstrap';
 
 import InputField from '../components/input-field';
 import DatepickerField from '../components/datepicker-field';
 import TextAreaField from '../components/textarea-field';
 
 class EventForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sectionShown: false
+        };
+
+        this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    }
+
     renderCurrencyField({ input, label, type, meta: { touched, error, warning } }) {
         return (
             <div>
@@ -39,22 +49,20 @@ class EventForm extends Component {
         );
     }
 
+    renderSectionHeader() {
+        return (
+            <h3 className="text-center"
+                onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                SÜNDMUSE INFO
+            </h3>
+        );
+    }
+
     render() {
         return (
-            <div className="panel-group">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h4 className="panel-title">
-                            <a className="text-center" data-toggle="collapse" href="#collapse-event-info">SÜNDMUSE INFO</a>
-                        </h4>
-                    </div>
-                    <div id="collapse-event-info" className="panel-collapse collapse">
-                        <div className="panel-body">
-                            {this.renderEventFormFields()}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+                {this.renderEventFormFields()}
+            </Panel>
         );
     }
 }

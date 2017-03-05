@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
+import { Panel } from 'react-bootstrap';
 
 import CountrySelect from '../components/country-select';
 import CountySelect from '../components/county-select';
@@ -9,6 +10,14 @@ const inline = {
 };
 
 class SubmitterForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sectionShown: false
+        };
+
+        this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    }
 
     renderInputField({ input, label, type, meta: { touched, error, warning } }) {
         return (
@@ -131,22 +140,20 @@ class SubmitterForm extends Component {
         );
     }
 
+    renderSectionHeader() {
+        return (
+            <h3 className="text-center"
+                onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                TEATAJA
+            </h3>
+        );
+    }
+
     render() {
         return (
-            <div className="panel-group">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h4 className="panel-title">
-                            <a className="text-center" data-toggle="collapse" href="#collapse-submitter">TEATAJA</a>
-                        </h4>
-                    </div>
-                    <div id="collapse-submitter" className="panel-collapse collapse">
-                        <div className="panel-body">
-                            {this.renderSubmitterFormFields()}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+                {this.renderSubmitterFormFields()}
+            </Panel>
         );
     }
 }
