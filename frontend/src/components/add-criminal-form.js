@@ -32,11 +32,11 @@ class AddCriminalForm extends Component {
         return criminals.map((criminal, index) => {
             return (
                 <tr key={index}>
-                    <td>{ index }</td>
-                    <td>{ criminal.firstName }</td>
-                    <td>{ criminal.lastName }</td>
+                    <td className="text-center">{ index }</td>
+                    <td className="text-center">{ criminal.firstName }</td>
+                    <td className="text-center">{ criminal.lastName }</td>
                     <td>
-                        <Button onClick={() => this.props.dispatch(removeCriminal(index))}>
+                        <Button className="pull-right" bsStyle="danger" onClick={() => this.props.dispatch(removeCriminal(index))}>
                             <span className="glyphicon glyphicon-remove"/>
                         </Button>
                     </td>
@@ -47,13 +47,13 @@ class AddCriminalForm extends Component {
 
     renderAddedCriminalsTable(criminals = []) {
         return (
-            <Table striped bordered condensed hover>
+            <Table striped condensed hover>
                 <thead>
                 { criminals.length > 0 &&
                 <tr>
-                    <th>#</th>
-                    <th> Eesnimi </th>
-                    <th> Perekonnanimi </th>
+                    <th className="text-center">#</th>
+                    <th className="text-center"> Eesnimi </th>
+                    <th className="text-center"> Perekonnanimi </th>
                     <th/>
                 </tr>}
                 </thead>
@@ -132,7 +132,7 @@ class AddCriminalForm extends Component {
                    expanded={this.state.sectionShown}
                    header={this.renderSectionHeader()}>
                 { this.renderAddedCriminalsTable(this.props.criminals) }
-                <Button onClick={this.showModal}>
+                <Button className="pull-right" bsStyle="success" onClick={this.showModal}>
                     <Glyphicon glyph="plus"/>
                     Lisa isik
                 </Button>

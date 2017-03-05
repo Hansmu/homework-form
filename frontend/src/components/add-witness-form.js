@@ -31,12 +31,12 @@ class AddWitnessForm extends Component {
         return witnesses.map((witness, index) => {
             return (
                 <tr key={index}>
-                    <td>{ index }</td>
-                    <td>{ witness.firstName }</td>
-                    <td>{ witness.lastName }</td>
-                    <td>
-                        <Button onClick={() => this.props.dispatch(removeWitness(index))}>
-                            <span className="glyphicon glyphicon-remove"/>
+                    <td className="text-center">{ index }</td>
+                    <td className="text-center">{ witness.firstName }</td>
+                    <td className="text-center">{ witness.lastName }</td>
+                    <td className="pull-right">
+                        <Button bsStyle="danger" onClick={() => this.props.dispatch(removeWitness(index))}>
+                            <Glyphicon glyph="remove"/>
                         </Button>
                     </td>
                 </tr>
@@ -46,13 +46,13 @@ class AddWitnessForm extends Component {
 
     renderAddedWitnessesTable(witnesses = []) {
         return (
-            <Table striped bordered condensed hover>
+            <Table striped condensed hover>
                 <thead>
                 { witnesses.length > 0 &&
                     <tr>
-                        <th>#</th>
-                        <th> Eesnimi </th>
-                        <th> Perekonnanimi </th>
+                        <th className="text-center">#</th>
+                        <th className="text-center"> Eesnimi </th>
+                        <th className="text-center"> Perekonnanimi </th>
                         <th/>
                     </tr>}
                 </thead>
@@ -127,8 +127,8 @@ class AddWitnessForm extends Component {
                    header={this.renderSectionHeader()}>
 
                 { this.renderAddedWitnessesTable(this.props.witnesses) }
-                <Button onClick={this.showModal}>
-                    <span className="glyphicon glyphicon-plus"/>
+                <Button className="pull-right" bsStyle="success" onClick={this.showModal}>
+                    <Glyphicon glyph="plus"/>
                     Lisa tunnistaja
                 </Button>
                 { this.renderAddWitnessModal() }

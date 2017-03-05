@@ -82,6 +82,13 @@ class Home extends Component {
         );
     }
 
+    scrollToFirstError() {
+        const errors = document.getElementsByClassName("errorMessage");
+        if (errors.length > 0) {
+            errors[0].scrollIntoView();
+        }
+    }
+
     renderForm() {
         return (
             <Form onSubmit={this.props.handleSubmit(this.submitForm.bind(this))}>
@@ -96,8 +103,13 @@ class Home extends Component {
                     <Col xs={12}>
                         <hr/>
                     </Col>
-                    <Button type="submit" bsStyle="primary">Kinnita ja allkirjasta ID kaardiga</Button>
-                    <Button className="pull-right" type="submit" bsStyle="primary">Kinnita allkirjastamata</Button>
+                    <Button type="submit"
+                            bsStyle="primary"
+                            onClick={this.scrollToFirstError}>Kinnita ja allkirjasta ID kaardiga</Button>
+                    <Button className="pull-right"
+                            type="submit"
+                            bsStyle="success"
+                            onClick={this.scrollToFirstError}>Kinnita allkirjastamata</Button>
                 </Panel>
             </Form>
         );
@@ -106,6 +118,7 @@ class Home extends Component {
     render() {
         return (
             <div>
+                <p style={{color: 'red'}}>Aine kasutajaliidesed kodutöö</p>
                 <TextHeaders />
                 { this.renderForm() }
                 { this.renderFormValuesModal() }

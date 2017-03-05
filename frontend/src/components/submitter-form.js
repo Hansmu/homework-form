@@ -36,8 +36,8 @@ class SubmitterForm extends Component {
                 </Col>
                 <Col xs={12} sm={4}>
                     <InputField name="personCode"
-                                label="Isikukood * "
-                                validate={[this.props.isNumber, this.props.required]}/>
+                                label="Isikukood"
+                                validate={[this.props.isNumber]}/>
                 </Col>
             </div>
         );
