@@ -1,11 +1,12 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import { Panel, FormControl } from 'react-bootstrap';
 
 const renderTextArea = ({ input, label, rows, cols, type, meta: { touched, error, warning } }) => {
     return (
         <div>
             <div>
-                <textarea {...input} rows={rows} cols={cols} placeholder={label}/>
+                <FormControl {...input} componentClass="textarea" rows={rows} cols={cols} placeholder={label}/>
             </div>
         </div>
     );

@@ -2,15 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import { Field } from 'redux-form';
 import DatePicker from 'react-datepicker';
+import { FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class DateField extends React.Component {
     render() {
         return (
-            <div className="input-group">
-                <span className="input-group-addon glyphicon glyphicon-calendar"/>
-                <input {...this.props} className="form-control"/>
-            </div>
+            <InputGroup>
+                <InputGroup.Addon><Glyphicon glyph="calendar"/></InputGroup.Addon>
+                <FormControl {...this.props} className="form-control"/>
+            </InputGroup>
         );
     }
 }

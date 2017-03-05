@@ -1,14 +1,18 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import { FormControl, FormGroup } from 'react-bootstrap';
 
 const renderInputField = ({ input, label, type, meta: { touched, error, warning } }) => {
     return (
-        <div>
-            <div className="input-group">
-                <input {...input} className="form-control" placeholder={label} type={type}/>
+        <span className="has-float-label">
+            <FormGroup>
+                <FormControl {...input} type={type}/>
                 {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-            </div>
-        </div>
+                <label>
+                    {label}
+                </label>
+            </FormGroup>
+        </span>
     );
 };
 

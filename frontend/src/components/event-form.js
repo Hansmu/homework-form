@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Panel } from 'react-bootstrap';
+import { Panel, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
 
 import InputField from '../components/input-field';
 import DatepickerField from '../components/datepicker-field';
@@ -19,13 +19,11 @@ class EventForm extends Component {
 
     renderCurrencyField({ input, label, type, meta: { touched, error, warning } }) {
         return (
-            <div>
-                <div className="input-group">
-                    <span className="input-group-addon glyphicon glyphicon-euro"/>
-                    <input {...input} className="form-control" placeholder={label} type={type}/>
-                    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-                </div>
-            </div>
+            <InputGroup>
+                <InputGroup.Addon><Glyphicon glyph="euro"/></InputGroup.Addon>
+                <FormControl {...input} placeholder={label} type={type}/>
+                {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+            </InputGroup>
         )
     };
 

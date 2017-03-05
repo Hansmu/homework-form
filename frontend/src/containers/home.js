@@ -9,6 +9,7 @@ import TextHeaders from '../components/text-header';
 import AddWitnessForm from '../components/add-witness-form';
 import AddCriminalForm from '../components/add-criminal-form';
 import AdditionalData from '../components/additional-data';
+import '../../style/style.css';
 
 const required = value => value ? undefined : 'Kohustuslik';
 const isNumber = value => value && isNaN(Number(value)) ? 'Peab olema arv' : undefined;

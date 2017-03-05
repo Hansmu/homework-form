@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { Checkbox, Glyphicon, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Checkbox, Glyphicon, OverlayTrigger, Popover, Panel } from 'react-bootstrap';
+
+import CheckboxField from './checkbox-field';
 
 class AdditionalData  extends Component {
     constructor(props) {
         super(props);
-    }
 
-    renderCheckBox({ input, label, type, meta: { touched, error, warning } }) {
-        return (
-            <Checkbox {...input}>
-                { label }
-            </Checkbox>
-        );
+        this.state = {
+            sectionShown: false
+        };
+
+        this.renderSectionHeader = this.renderSectionHeader.bind(this);
     }
 
     renderPopover() {
         return (
-            <Popover id="blablabla">
-                Extra info
+            <Popover id="agreement-info" style={{maxWidth: '500px'}}>
+                Kokkuleppemenetlus on menetluse liik, mille käigus nõustuvad süüdistatav ja tema kaitsja süüdistuse sisu ja kuriteo kvalifikatsiooni,
+                kuriteoga tekitatud kahju laadi ja suurusega ning jõuavad kokkuleppele prokuröri poolt kohtus nõutava karistuse liigis ja määras
             </Popover>
         );
     }
@@ -26,7 +27,12 @@ class AdditionalData  extends Component {
     renderAgreementHeader() {
         return (
             <label>
-                <Glyphicon glyph="exclamation-sign"/>
+                Olen nõus kokkuleppemenetlusega
+                <OverlayTrigger trigger="click"
+                                placement="right"
+                                overlay={this.renderPopover()}>
+                    <Glyphicon glyph="exclamation-sign"/>
+                </OverlayTrigger>
             </label>
         );
     }
@@ -39,25 +45,25 @@ class AdditionalData  extends Component {
         );
     }
 
+    renderSectionHeader() {
+        return (
+            <h3 className="text-center"
+                onClick={() => this.setState({sectionShown: !this.state.sectionShown})}>
+                TÄIENDAVAD ANDMED
+            </h3>
+        );
+    }
+
     render() {
         return (
-            <div>
-                <Field name="isAcceptingAgreement"
-                       id="isAcceptingAgreement"
-                       label={this.renderAgreementHeader()}
-                       component={this.renderCheckBox}
-                       type="checkbox"/>
-                <Field name="isForwardingAllowed"
-                       id="isForwardingAllowed"
-                       label="Olen nõus, et menetlusega seotud dokumendid edastatakse minu poolt antud e-posti aadressile"
-                       component={this.renderCheckBox}
-                       type="checkbox"/>
-                <Field name="isThroughEFolder"
-                       id="isThroughEFolder"
-                       label={ this.renderEToimikHeader() }
-                       component={this.renderCheckBox}
-                       type="checkbox"/>
-            </div>
+            <Panel collapsible expanded={this.state.sectionShown} header={this.renderSectionHeader()}>
+                <CheckboxField name="isAcceptingAgreement"
+                               label={this.renderAgreementHeader()}/>
+                <CheckboxField name="isForwardingAllowed"
+                               label={<label>Olen nõus, et menetlusega seotud dokumendid edastatakse minu poolt antud e-posti aadressile</label>}/>
+                <CheckboxField name="isThroughEFolder"
+                               label={ this.renderEToimikHeader() }/>
+            </Panel>
         );
     }
 }
