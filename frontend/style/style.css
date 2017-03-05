@@ -2,6 +2,10 @@
     max-width: none;
 }
 
+.text-wrap p {
+    word-wrap: break-word;
+}
+
 body {
     margin-top: 60px;
     margin-bottom: 60px;

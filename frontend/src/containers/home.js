@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field, reduxForm } from 'redux-form';
-import { Button, Col, Panel } from 'react-bootstrap';
+import { Button, Col, Panel, Modal, Row } from 'react-bootstrap';
 
 import { addCat } from '../actions';
 import SubmitterForm from '../components/submitter-form';
@@ -19,8 +19,15 @@ class Home extends Component {
     constructor(props) {
         super(props);
 
-        this.renderForm = this.renderForm.bind(this);
+        this.state = {
+            formValues: {},
+            showFormValues: false
+        };
+
         this.isEstonia = this.isEstonia.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.renderForm = this.renderForm.bind(this);
+        this.renderFormValuesModal = this.renderFormValuesModal.bind(this);
     }
 
     isEstonia() {
@@ -28,13 +35,51 @@ class Home extends Component {
         return personCountry ? personCountry === 'Eesti Vabariik' : true;
     }
 
-    isPhoneSelected() {
-        const { phone } = this.props.fieldValues;
-        return phone ? phone : false;
+    submitForm(values) {
+        let formValues = values;
+        values.criminals = this.props.criminals;
+        values.witnesses = this.props.witnesses;
+
+        this.setState({formValues});
+        this.setState({showFormValues: true});
     }
 
-    submitForm(values) {
-        console.log(values);
+    closeModal() {
+        this.setState({showFormValues: false});
+    }
+
+    renderFormValuesModal() {
+        return (
+            <Modal show={this.state.showFormValues} onHide={this.closeModal}>
+                <Modal.Header>
+                    <Modal.Title className="text-center">Vormi väljad</Modal.Title>
+                </Modal.Header>
+
+                    <div style={{marginBottom: '20px'}}>
+                        <Modal.Body>
+                            <Col xs={12}>
+                                <p className="text-wrap">
+                                    {JSON.stringify(this.state.formValues, null, 2)}
+                                </p>
+                            </Col>
+                        </Modal.Body>
+
+                        <Col xs={12}>
+                            <hr/>
+                        </Col>
+
+                        <Row>
+                            <Col xs={5} className="pull-right" style={{marginRight: '30px'}}>
+                                <Button className="pull-right"
+                                        bsStyle="danger"
+                                        onClick={this.closeModal}>
+                                    Sulge
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
+            </Modal>
+        );
     }
 
     renderForm() {
@@ -43,8 +88,7 @@ class Home extends Component {
                 <Panel>
                     <SubmitterForm required={required}
                                    isNumber={isNumber}
-                                   isEstonia={this.isEstonia()}
-                                   isPhoneSelected={this.isPhoneSelected()}/>
+                                   isEstonia={this.isEstonia()}/>
                     <EventForm required={required}/>
                     <AddWitnessForm witnesses={this.props.witnesses}/>
                     <AddCriminalForm criminals={this.props.criminals}/>
@@ -63,7 +107,8 @@ class Home extends Component {
         return (
             <div>
                 <TextHeaders />
-                {this.renderForm()}
+                { this.renderForm() }
+                { this.renderFormValuesModal() }
             </div>
         );
     }
