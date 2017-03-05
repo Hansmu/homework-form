@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Modal, Button, Panel, Table } from 'react-bootstrap';
+import { Modal, Button, Panel, Table, Col, Row } from 'react-bootstrap';
 
 import AddPersonFields from './add-person-fields';
 import { addWitness, removeWitness } from '../actions/people/add-witness';
@@ -75,20 +75,29 @@ class AddWitnessForm extends Component {
         return (
             <Modal show={this.state.showModal} onHide={this.closeModal}>
                 <Modal.Header>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title className="text-center">Lisa tunnistaja</Modal.Title>
                 </Modal.Header>
 
                 <Form onSubmit={this.props.handleSubmit(this.submitForm.bind(this))}>
-                    <Modal.Body>
-                            <AddPersonFields/>
-                    </Modal.Body>
+                    <div style={{marginBottom: '20px'}}>
+                        <Modal.Body>
+                                <AddPersonFields/>
+                        </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button onClick={this.closeModal}>Sulge</Button>
-                        <Button type="submit" bsStyle="primary">
-                            Lisa tunnistaja
-                        </Button>
-                    </Modal.Footer>
+                        <hr/>
+                        <Row>
+                            <Col xs={5} style={{marginLeft: '30px'}}>
+                                <Button type="submit" bsStyle="primary">Lisa tunnistaja</Button>
+                            </Col>
+                            <Col xs={5} className="pull-right" style={{marginRight: '30px'}}>
+                                <Button className="pull-right"
+                                        bsStyle="danger"
+                                        onClick={this.closeModal}>
+                                    Sulge
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </Modal>
         );
