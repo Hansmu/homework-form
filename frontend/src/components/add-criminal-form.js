@@ -32,9 +32,10 @@ class AddCriminalForm extends Component {
         return criminals.map((criminal, index) => {
             return (
                 <tr key={index}>
-                    <td className="text-center">{ index }</td>
+                    <td className="text-center">{ index + 1 }</td>
                     <td className="text-center">{ criminal.firstName }</td>
                     <td className="text-center">{ criminal.lastName }</td>
+                    <td className="text-center">{ criminal.personCitizenship }</td>
                     <td>
                         <Button className="pull-right" bsStyle="danger" onClick={() => this.props.dispatch(removeCriminal(index))}>
                             <span className="glyphicon glyphicon-remove"/>
@@ -54,6 +55,7 @@ class AddCriminalForm extends Component {
                     <th className="text-center">#</th>
                     <th className="text-center"> Eesnimi </th>
                     <th className="text-center"> Perekonnanimi </th>
+                    <th className="text-center"> Kodakondsus </th>
                     <th/>
                 </tr>}
                 </thead>
@@ -149,7 +151,10 @@ const mapStateToProps = state => ({
 AddCriminalForm = connect(mapStateToProps, dispatch => ({dispatch}))(AddCriminalForm);
 
 AddCriminalForm = reduxForm({
-    form: 'criminalForm'
+    form: 'criminalForm',
+    initialValues: {
+        personCitizenship: 'Eesti Vabariik'
+    }
 })(AddCriminalForm);
 
 export default AddCriminalForm;

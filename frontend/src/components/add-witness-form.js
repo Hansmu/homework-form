@@ -31,9 +31,10 @@ class AddWitnessForm extends Component {
         return witnesses.map((witness, index) => {
             return (
                 <tr key={index}>
-                    <td className="text-center">{ index }</td>
+                    <td className="text-center">{ index + 1 }</td>
                     <td className="text-center">{ witness.firstName }</td>
                     <td className="text-center">{ witness.lastName }</td>
+                    <td className="text-center">{ witness.personCitizenship }</td>
                     <td className="pull-right">
                         <Button bsStyle="danger" onClick={() => this.props.dispatch(removeWitness(index))}>
                             <Glyphicon glyph="remove"/>
@@ -53,6 +54,7 @@ class AddWitnessForm extends Component {
                         <th className="text-center">#</th>
                         <th className="text-center"> Eesnimi </th>
                         <th className="text-center"> Perekonnanimi </th>
+                        <th className="text-center"> Kodakondsus </th>
                         <th/>
                     </tr>}
                 </thead>
@@ -144,7 +146,10 @@ const mapStateToProps = state => ({
 AddWitnessForm = connect(mapStateToProps, dispatch => ({dispatch}))(AddWitnessForm);
 
 AddWitnessForm = reduxForm({
-    form: 'witnessForm'
+    form: 'witnessForm',
+    initialValues: {
+        personCitizenship: 'Eesti Vabariik'
+    }
 })(AddWitnessForm);
 
 export default AddWitnessForm;
