@@ -11,12 +11,12 @@ const renderPopover = (id, text) => {
 
 const renderExtraInfo = (id, text, extraInfo) =>  {
     return (
-        <OverlayTrigger trigger="click"
+        <OverlayTrigger trigger={['hover', 'focus']}
                         placement="right"
                         overlay={renderPopover(id, extraInfo)}>
             <label>
             { text }
-            <Glyphicon glyph="exclamation-sign"/>
+            <Glyphicon style={{color: '#428bca'}} glyph="exclamation-sign"/>
             </label>
         </OverlayTrigger>
     );

@@ -26,14 +26,14 @@ class AdditionalData  extends Component {
 
     renderAgreementHeader() {
         return (
-            <label>
-                Olen nõus kokkuleppemenetlusega
-                <OverlayTrigger trigger="click"
-                                placement="right"
-                                overlay={this.renderPopover()}>
-                    <Glyphicon glyph="exclamation-sign"/>
-                </OverlayTrigger>
-            </label>
+            <OverlayTrigger trigger={['hover', 'focus']}
+                            placement="right"
+                            overlay={this.renderPopover()}>
+                <label>
+                    Olen nõus kokkuleppemenetlusega
+                    <Glyphicon style={{color: '#428bca'}} glyph="exclamation-sign"/>
+                </label>
+            </OverlayTrigger>
         );
     }
 
